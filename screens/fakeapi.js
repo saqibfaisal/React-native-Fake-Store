@@ -13,29 +13,27 @@ import {
 } from "react-native";
 import { GlobalStyle } from "../global";
 import { useState, useEffect } from "react";
-
-function FakeApi() {
+import Product from "./product";
+function FakeApi({navigation}) {
   let [mydata, setData] = React.useState([]);
   let [loader, setloader] = React.useState(false);
   let [refresh, setRefresh] = React.useState(false);
   const [allCategories, setAllCategories] = useState([]);
-  // console.log(allCategories);
   const [Txt, setTxt] = useState("");
   const searchtxt = (e) => {
     setTxt(e.taget.value);
-  }
-  console.log(Txt)
-  let datasearch = mydata.filter(item => {
-    return Object.keys(item).some(key =>
+  };
+  console.log(Txt);
+  let datasearch = mydata.filter((item) => {
+    return Object.keys(item).some((key) =>
       item[key].toString().toLowerCase().includes(Txt.toString().toLowerCase())
-    )
-  })
+    );
+  });
   let handleRefresh = () => {
     setRefresh(true);
     setTimeout(() => {
       setRefresh(false);
       ToastAndroid.show("Refreshed Successfully", 2000);
-      // getData();
     }, 1500);
   };
   let getData = async () => {
@@ -45,20 +43,22 @@ function FakeApi() {
       const data = await response.json();
       setData(data);
       setloader(false);
-      // console.log(data)
     } catch (error) {
       console.log(error);
       setloader(false);
     }
   };
   let getCategories = () => {
-    let li = mydata.map(x => x.category);
+    let li = mydata.map((x) => x.category);
     li = [...new Set([...li])];
     setAllCategories([...li]);
   };
+  let move =(e)=>{
+navigation.navigate('Product',e)
+  }
   useEffect(() => {
     getData();
-    getCategories()
+    getCategories();
   }, []);
   return loader ? (
     <View
@@ -114,72 +114,64 @@ function FakeApi() {
             justifyContent: "center",
             alignItems: "center",
           }}
-          // onPress={Search()}
         >
-          {/* <Touchableo> */}
-          <Image
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/6711/6711443.png",
-            }}
-            style={{ width: 40, height: 40 }}
-          />
-          {/* </Touchableo> */}
         </TouchableOpacity>
       </View>
-      <View style={{flexDirection: 'row', margin: 15}}>
-          <ScrollView horizontal={true} style={{paddingVertical:10}} >
-            {allCategories.map((item, index) => (
-              <View style={{marginHorizontal: 5}} key={index}>
-                <TouchableOpacity   >
-                  <Text style={{color: 'black', fontWeight: '600',padding:3}}>
-                    {item}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            ))}
-          </ScrollView>
-        </View>
-
-      <View>
-        <ScrollView
-          refreshControl={
-            <RefreshControl onRefresh={handleRefresh} refreshing={refresh} />
-          }
-        >
-          <View style={GlobalStyle.main}>
-            {datasearch?.map((e, i) => {
-              return (
-                <View key={i} style={GlobalStyle.mainScreen}>
-                  <View key={i} style={GlobalStyle.card}>
-                    <View style={GlobalStyle.cardHeader}></View>
-                    <View style={GlobalStyle.cardImageContainer}>
-                      <Image
-                        source={{ uri: e.image }}
-                        style={GlobalStyle.cardImage}
-                      />
-                    </View>
-                    <View style={GlobalStyle.cardBodyContainer}>
-                      <Text style={GlobalStyle.cardBodyPara}>{e.title}</Text>
-                      <Text
-                        style={[
-                          GlobalStyle.cardBodyPara,
-                          { textAlign: "justify" },
-                        ]}
-                      >
-                        {e.description.slice(0, 70) +
-                          (e.description > 70 ? "..." : " ")}
-                      </Text>
-                      <Text style={GlobalStyle.cardBodyPara}>
-                        {e.price} USD
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              );
-            })}
-          </View>
+      <View style={{ flexDirection: "row", margin: 15 }}>
+        <ScrollView horizontal={true} style={{ paddingVertical: 10 }}>
+          {allCategories.map((item, index) => (
+            <View style={{ marginHorizontal: 5 }} key={index}>
+              <TouchableOpacity>
+                <Text style={{ color: "black", fontWeight: "600", padding: 3 }}>
+                  {item}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ))}
         </ScrollView>
       </View>
+        <View>
+          <ScrollView
+            refreshControl={
+              <RefreshControl onRefresh={handleRefresh} refreshing={refresh} />
+            }
+          >
+            <View style={GlobalStyle.main}>
+              {datasearch?.map((e, i) => {
+                return (
+                  <TouchableOpacity key={i} onPress={()=>move(e)} style={GlobalStyle.mainScreen}>
+                  <View key={i} >
+                    <View key={i} style={GlobalStyle.card}>
+                      <View style={GlobalStyle.cardHeader}></View>
+                      <View style={GlobalStyle.cardImageContainer}>
+                        <Image
+                          source={{ uri: e.image }}
+                          style={GlobalStyle.cardImage}
+                        />
+                      </View>
+                      <View style={GlobalStyle.cardBodyContainer}>
+                        <Text style={GlobalStyle.cardBodyPara}>{e.title}</Text>
+                        <Text
+                          style={[
+                            GlobalStyle.cardBodyPara,
+                            { textAlign: "justify" },
+                          ]}
+                        >
+                          {e.description.slice(0, 70) +
+                            (e.description > 70 ? "..." : " ")}
+                        </Text>
+                        <Text style={GlobalStyle.cardBodyPara}>
+                          {e.price} USD
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </ScrollView>
+        </View>
     </>
   );
 }

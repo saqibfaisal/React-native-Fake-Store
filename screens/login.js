@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import { GlobalStyle } from "../global";
-export default function Login() {
+function Login({navigation}) {
   return (
     <View>
       <View style={GlobalStyle.Signup}>
@@ -35,16 +35,19 @@ export default function Login() {
           Forgot Password ?
         </Text>
         <TouchableOpacity style={GlobalStyle.Button}>
-                <Text style={{ color: 'white', fontSize: 17, }}>Signup </Text>
+                <Text style={{ color: 'white', fontSize: 20, }}>Login </Text>
             </TouchableOpacity>
 
             <View style={{marginVertical: 10, flexDirection:'row', marginTop: 20}}>
 
                 <Text>Don't Have an Account? </Text>
-                <Text style={{ color: '#07ABF1' }}>Create Account</Text>
+                <TouchableOpacity onPress={()=>navigation.navigate("Signup")}>
 
+                <Text style={{ color: '#07ABF1' }}>Create Account</Text>
+                </TouchableOpacity>
             </View>
       </View>
     </View>
   );
 }
+export default Login

@@ -24,7 +24,7 @@ export const GlobalStyle = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    marginBottom:450,
+    marginBottom: 450,
     // paddingVertical: 15
     // paddingHorizontal: 15,
   },
@@ -73,7 +73,7 @@ export const GlobalStyle = StyleSheet.create({
     height: 200,
   },
   cardBodyContainer: {
-    padding:10,
+    padding: 10,
     // backgroundColor: '#353534',
     paddingHorizontal: 12,
     paddingVertical: 20,
@@ -91,41 +91,40 @@ export const GlobalStyle = StyleSheet.create({
     fontSize: 16,
     fontFamily: "cursive",
     marginBottom: 10,
-    marginTop:10,
-    fontWeight:"bold"
+    marginTop: 10,
+    fontWeight: "bold",
   },
   rating: {
     textAlign: "right",
     fontSize: 18,
   },
- Signup:{
-  // height:"100%",
-  justifyContent: 'center',
-  alignItems:"center",
-  textAlign: "center",
+  Signup: {
+    // height:"100%",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
   },
-  SignupView:{
+  SignupView: {
     // marginTop:10,
-    width: '80%',
-        borderRadius: 20,
-        elevation: 12,
-        shadowColor: 'grey',
-        overflow: 'hidden',
-        backgroundColor: 'white',
-        marginVertical: 15,
+    width: "80%",
+    borderRadius: 20,
+    elevation: 12,
+    shadowColor: "grey",
+    overflow: "hidden",
+    backgroundColor: "white",
+    marginVertical: 15,
   },
-  SignupInput:{
+  SignupInput: {
     padding: 8,
-        paddingHorizontal: 20,
-        fontSize: 15,
+    paddingHorizontal: 20,
+    fontSize: 15,
   },
-  Button:{
-    backgroundColor: '#07ABF1',
-    //     // width: '80%',
-        borderRadius: 20,
-        padding: 12,
-        paddingHorizontal: 40,
-        marginVertical: 15,
-        alignItems: 'center',
-  }
+  Button: {
+    backgroundColor: "#07ABF1",
+    borderRadius: 20,
+    padding: 12,
+    paddingHorizontal: 40,
+    marginVertical: 15,
+    alignItems: "center",
+  },
 });
