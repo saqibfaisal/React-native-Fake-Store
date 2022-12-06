@@ -14,7 +14,7 @@ import {
 import { GlobalStyle } from "../global";
 import { useState, useEffect } from "react";
 import Product from "./product";
-function FakeApi({navigation}) {
+function FakeApi({ navigation }) {
   let [mydata, setData] = React.useState([]);
   let [loader, setloader] = React.useState(false);
   let [refresh, setRefresh] = React.useState(false);
@@ -29,6 +29,7 @@ function FakeApi({navigation}) {
       item[key].toString().toLowerCase().includes(Txt.toString().toLowerCase())
     );
   });
+  console.log(datasearch);
   let handleRefresh = () => {
     setRefresh(true);
     setTimeout(() => {
@@ -53,9 +54,9 @@ function FakeApi({navigation}) {
     li = [...new Set([...li])];
     setAllCategories([...li]);
   };
-  let move =(e)=>{
-navigation.navigate('Product',e)
-  }
+  let move = (e) => {
+    navigation.navigate("Product", e);
+  };
   useEffect(() => {
     getData();
     getCategories();
@@ -114,8 +115,7 @@ navigation.navigate('Product',e)
             justifyContent: "center",
             alignItems: "center",
           }}
-        >
-        </TouchableOpacity>
+        ></TouchableOpacity>
       </View>
       <View style={{ flexDirection: "row", margin: 15 }}>
         <ScrollView horizontal={true} style={{ paddingVertical: 10 }}>
@@ -130,17 +130,21 @@ navigation.navigate('Product',e)
           ))}
         </ScrollView>
       </View>
-        <View>
-          <ScrollView
-            refreshControl={
-              <RefreshControl onRefresh={handleRefresh} refreshing={refresh} />
-            }
-          >
-            <View style={GlobalStyle.main}>
-              {datasearch?.map((e, i) => {
-                return (
-                  <TouchableOpacity key={i} onPress={()=>move(e)} style={GlobalStyle.mainScreen}>
-                  <View key={i} >
+      <View>
+        <ScrollView
+          refreshControl={
+            <RefreshControl onRefresh={handleRefresh} refreshing={refresh} />
+          }
+        >
+          <View style={GlobalStyle.main}>
+            {datasearch?.map((e, i) => {
+              return (
+                <TouchableOpacity
+                  key={i}
+                  onPress={() => move(e)}
+                  style={GlobalStyle.mainScreen}
+                >
+                  <View key={i}>
                     <View key={i} style={GlobalStyle.card}>
                       <View style={GlobalStyle.cardHeader}></View>
                       <View style={GlobalStyle.cardImageContainer}>
@@ -166,12 +170,12 @@ navigation.navigate('Product',e)
                       </View>
                     </View>
                   </View>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
-          </ScrollView>
-        </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        </ScrollView>
+      </View>
     </>
   );
 }

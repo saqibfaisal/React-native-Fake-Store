@@ -1,10 +1,18 @@
+// import AsyncStorage from '@react-native-async-storage/async-storage'
 import React from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { style } from "../Styling/Styling";
+import { Image, ScrollView, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
 
 function Product({ navigation, route }) {
   //   console.log(route);
   let data = route.params;
+  let Click = () => {
+  //   AsyncStorage.setItem(
+  // 'data',
+  // JSON.stringify(data))
+  setTimeout(() => {
+    ToastAndroid.show(" Successfully", 2000);
+  }, 1500);
+  };
   return (
     <>
       <View style={{ padding: 10, backgroundColor: "white" }}>
@@ -15,8 +23,8 @@ function Product({ navigation, route }) {
             borderRadius: 25,
             backgroundColor: "white",
             height: "60%",
-            paddingTop:60
-        }}
+            paddingTop: 60,
+          }}
         >
           <Image
             source={{ uri: data.image }}
@@ -74,6 +82,7 @@ function Product({ navigation, route }) {
                       paddingVertical: 10,
                       backgroundColor: "black",
                     }}
+                    onPress={() => Click()}
                   >
                     <Text style={{ color: "white", fontWeight: "600" }}>
                       Cart
